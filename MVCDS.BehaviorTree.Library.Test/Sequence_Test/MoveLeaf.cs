@@ -9,13 +9,30 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
     internal class MoveLeaf: ILeaf
     {
-        private IPositionable _source;
-        private Point2D _target;
-
         public MoveLeaf(IPositionable source, Point2D target)
         {
-            this._source = source;
-            this._target = target;
+            Source = source;
+            Target = target;
+        }
+
+        private IPositionable Source { get; set; }
+
+        private Point2D Target { get; set; }
+
+        private bool IsAtTarget
+        {
+            get
+            {
+                return (Source.Position.X == Target.X && Source.Position.Y == Target.Y);
+            }
+        }
+
+        private bool IsTargetBlocked
+        {
+            get
+            {
+                return false;
+            }
         }
 
         #region ILeaf Members
@@ -31,9 +48,29 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 
         public NodeStatus Process()
         {
-            throw new NotImplementedException();
+            if (IsAtTarget)
+                return NodeStatus.Success;
+            else if (IsTargetBlocked)
+                return NodeStatus.Failure;
+            
+            Move();
+
+            return NodeStatus.Running;
         }
 
         #endregion
+
+        private void Move()
+        {
+            int x = Source.Position.X + Move(Source.Position.X, Target.X);
+            int y = Source.Position.Y + Move(Source.Position.Y, Target.Y);
+
+            Source.Position = new Point2D(x, y);
+        }
+
+        private int Move(int source, int target)
+        {
+            return target.CompareTo(source);
+        }
     }
 }

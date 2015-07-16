@@ -7,7 +7,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
     internal interface IPositionable
     {
-        Point2D Position { get; }
+        Point2D Position { get; set; }
     }
 
     internal class Point2D

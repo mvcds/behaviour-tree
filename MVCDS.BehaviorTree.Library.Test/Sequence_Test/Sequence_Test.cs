@@ -33,17 +33,27 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         public void Init()
         {
             map.Add(hero);
-            ///map.Add(door);
-
             sequence.Children.Add(new MoveLeaf(hero, target));
-            //sequence.Children.Add(new OpenLeaf(hero, door));
+
+        }
+
+        private void AddDoor()
+        {
+            map.Add(door);
+            sequence.Children.Add(new OpenLeaf(hero, door));
         }
 
         [TestMethod]
         public void Hero_Reachs_Target_No_Door()
         {
-            result = sequence.Process();
-            Assert.AreSame(result, NodeStatus.Success);
+            KeepRunning();
+            Assert.AreEqual(result, NodeStatus.Success);
+        }
+
+        private void KeepRunning()
+        {
+            while (result == NodeStatus.Running)
+                result = sequence.Process();
         }
     }
 }

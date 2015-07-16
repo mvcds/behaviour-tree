@@ -17,7 +17,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         public Point2D Position
         {
             get;
-            private set;
+            set;
         }
 
         #endregion

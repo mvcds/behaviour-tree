@@ -9,11 +9,16 @@ namespace MVCDS.BehaviorTree.Library.Common.Composite
 {
     sealed public class Sequence: IComposite
     {
+        private List<INode> _children = new List<INode>();
+
         #region IComposite Members
 
         public List<INode> Children
         {
-            get { throw new NotImplementedException(); }
+            get 
+            {
+                return _children;
+            }
         }
 
         #endregion
@@ -22,7 +27,13 @@ namespace MVCDS.BehaviorTree.Library.Common.Composite
 
         public NodeStatus Process()
         {
-            throw new NotImplementedException();
+            foreach (INode child in Children)
+            {
+                NodeStatus result = child.Process();
+                if (result != NodeStatus.Running)
+                    return result;
+            }
+            return NodeStatus.Running;
         }
 
         #endregion
