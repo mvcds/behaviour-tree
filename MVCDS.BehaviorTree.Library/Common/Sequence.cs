@@ -5,27 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVCDS.BehaviorTree.Library.Common.Composite
+namespace MVCDS.BehaviorTree.Library.Common
 {
-    sealed public class Sequence: IComposite
+    sealed public class Sequence: Composite
     {
-        private List<INode> _children = new List<INode>();
-
-        #region IComposite Members
-
-        public List<INode> Children
+        public Sequence()
         {
-            get 
-            {
-                return _children;
-            }
+            base.Process(SequencialProcess);
         }
 
-        #endregion
-
-        #region INode Members
-
-        public NodeStatus Process()
+        private NodeStatus SequencialProcess()
         {
             foreach (INode child in Children)
             {
@@ -35,7 +24,5 @@ namespace MVCDS.BehaviorTree.Library.Common.Composite
             }
             return NodeStatus.Running;
         }
-
-        #endregion
     }
 }

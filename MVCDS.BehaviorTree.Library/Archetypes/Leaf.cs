@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public interface ILeaf: INode
+    public abstract class Leaf: INode
     {
-        void Init();
+        abstract public void Init();
+
+        abstract public NodeStatus Process();
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
-    internal class MoveLeaf: ILeaf
+    internal class MoveLeaf: Leaf
     {
         public MoveLeaf(IPositionable source, Point2D target)
         {
@@ -34,32 +34,24 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
                 return false;
             }
         }
-
-        #region ILeaf Members
-
-        public void Init()
+        
+        public override void Init()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region INode Members
-
-        public NodeStatus Process()
+        public override NodeStatus Process()
         {
             if (IsAtTarget)
                 return NodeStatus.Success;
             else if (IsTargetBlocked)
                 return NodeStatus.Failure;
-            
+
             Move();
 
             return NodeStatus.Running;
         }
-
-        #endregion
-
+        
         private void Move()
         {
             int x = Source.Position.X + Move(Source.Position.X, Target.X);

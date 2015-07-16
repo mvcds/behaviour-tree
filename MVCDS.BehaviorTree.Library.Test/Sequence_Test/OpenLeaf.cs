@@ -6,28 +6,20 @@ using System.Text;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
-    internal class OpenLeaf: ILeaf
+    internal class OpenLeaf: Leaf
     {
         public OpenLeaf(Hero hero, IOpenable target)
         {
         }
 
-        #region ILeaf Members
-
-        public void Init()
+        public override NodeStatus Process()
         {
             throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region INode Members
-
-        public NodeStatus Process()
+        public override void Init()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

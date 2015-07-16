@@ -39,16 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Archetypes\IComposite.cs" />
-    <Compile Include="Archetypes\IDecorator.cs" />
-    <Compile Include="Archetypes\ILeaf.cs" />
-    <Compile Include="Common\Composite\Sequence.cs" />
+    <Compile Include="Archetypes\Composite.cs" />
+    <Compile Include="Archetypes\Decorator.cs" />
+    <Compile Include="Archetypes\Leaf.cs" />
+    <Compile Include="Common\Sequence.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\Decorator\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MVCDS.BehaviorTree.Library.Common.Composite;
+using MVCDS.BehaviorTree.Library.Common;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
