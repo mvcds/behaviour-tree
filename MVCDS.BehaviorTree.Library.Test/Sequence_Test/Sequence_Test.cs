@@ -30,8 +30,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         Point2D target = new Point2D(0, 4);
         NodeStatus result;
 
-        [TestInitialize]
-        public void Init()
+        public void AddHero()
         {
             map.Add(hero);
             sequence.Children.Add(new MoveLeaf(hero, target));
@@ -42,13 +41,14 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
             map.Add(door);
 
             Leaf open = new OpenLeaf(hero, door);
-            open.OnSucced = () => sequence.Children.Add(new MoveLeaf(hero, target));
             sequence.Children.Add(open);
         }
 
         [TestMethod]
         public void No_Door()
         {
+            AddHero();
+
             KeepRunning();
             Assert.AreEqual(result, NodeStatus.Success);
             AssertsHero();
@@ -64,6 +64,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         public void No_Key()
         {
             AddDoor();
+            AddHero();
 
             KeepRunning();
             Assert.AreEqual(result, NodeStatus.Failure);
@@ -74,6 +75,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         public void With_Door_And_Key()
         {
             AddDoor();
+            AddHero();
             hero.Items.Add(new Key());
 
             KeepRunning();
