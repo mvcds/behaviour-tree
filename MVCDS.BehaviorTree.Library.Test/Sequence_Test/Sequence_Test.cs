@@ -25,7 +25,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         Map map = new Map(1, 5);
         Hero hero = new Hero();
         Sequence sequence = new Sequence();
-        Door door = new Door(y: 3);
+        Door door = new Door(0, 3, true);
         Point2D target = new Point2D(0, 4);
         NodeStatus result;
 
@@ -34,7 +34,6 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         {
             map.Add(hero);
             sequence.Children.Add(new MoveLeaf(hero, target));
-
         }
 
         private void AddDoor()
@@ -54,6 +53,15 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         {
             while (result == NodeStatus.Running)
                 result = sequence.Process();
+        }
+
+        [TestMethod]
+        public void Hero_Is_Blocked_By_Door_No_Key()
+        {
+            AddDoor();
+
+            KeepRunning();
+            Assert.AreEqual(result, NodeStatus.Failure);
         }
     }
 }

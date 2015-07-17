@@ -53,9 +53,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sequence_Test\Door.cs" />
     <Compile Include="Sequence_Test\Hero.cs" />
+    <Compile Include="Sequence_Test\IITemHolder.cs" />
     <Compile Include="Sequence_Test\IOpenable.cs" />
     <Compile Include="Sequence_Test\IPositionable.cs" />
     <Compile Include="Sequence_Test\ITraversable.cs" />
+    <Compile Include="Sequence_Test\Key.cs" />
     <Compile Include="Sequence_Test\Map.cs" />
     <Compile Include="Sequence_Test\OpenLeaf.cs" />
     <Compile Include="Sequence_Test\Sequence_Test.cs" />

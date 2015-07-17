@@ -7,9 +7,10 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
     internal class Door : IPositionable, ITraversable, IOpenable
     {
-        public Door(int x = 0, int y = 0)
+        public Door(int x = 0, int y = 0, bool locked = false)
         {
             Position = new Point2D(x, y);
+            IsLocked = locked;
         }
         
         #region IPositionable Members
@@ -35,7 +36,8 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 
         public bool IsLocked
         {
-            get { throw new NotImplementedException(); }
+            get;
+            private set;
         }
 
         public bool Open()

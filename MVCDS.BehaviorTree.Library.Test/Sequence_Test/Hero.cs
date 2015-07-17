@@ -5,11 +5,12 @@ using System.Text;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
-    internal class Hero: IPositionable
+    internal class Hero: IPositionable, IITemHolder
     {
         public Hero(int x = 0, int y = 0)
         {
             Position = new Point2D(x, y);
+            Items = new List<IItem>();
         }
 
         #region IPositionable Members
@@ -21,5 +22,11 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         }
 
         #endregion
+
+        public List<IItem> Items
+        {
+            get;
+            private set;
+        }
     }
 }

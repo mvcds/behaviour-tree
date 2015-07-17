@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
-    internal interface IOpenable: IPositionable
+    internal interface IITemHolder
     {
-        bool IsLocked { get; }
+        List<IItem> Items { get; }
+    }
 
-        bool Open();
-        void Close();
+    internal interface IItem
+    {
+        string Name { get; }
     }
 }
