@@ -42,7 +42,12 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 
         public bool Open()
         {
-            throw new NotImplementedException();
+            if (IsLocked)
+            {
+                IsLocked = false;
+                return true;
+            }
+            return false;
         }
 
         public void Close()

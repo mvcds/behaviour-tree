@@ -13,6 +13,8 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         {
             Source = source;
             Target = target;
+
+            base.Process(TryMove);
         }
 
         private IPositionable Source { get; set; }
@@ -40,7 +42,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
             //throw new NotImplementedException();
         }
 
-        public override NodeStatus Process()
+        private NodeStatus TryMove()
         {
             if (IsAtTarget)
                 return NodeStatus.Success;

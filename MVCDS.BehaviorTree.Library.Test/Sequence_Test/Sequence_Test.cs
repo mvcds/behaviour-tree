@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCDS.BehaviorTree.Library.Common;
+using MVCDS.BehaviorTree.Library.Archetypes;
 
 namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
@@ -39,14 +40,18 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         private void AddDoor()
         {
             map.Add(door);
-            sequence.Children.Add(new OpenLeaf(hero, door));
+
+            Leaf open = new OpenLeaf(hero, door);
+            open.OnSucced = () => sequence.Children.Add(new MoveLeaf(hero, target));
+            sequence.Children.Add(open);
         }
 
         [TestMethod]
-        public void Hero_Reachs_Target_No_Door()
+        public void No_Door()
         {
             KeepRunning();
             Assert.AreEqual(result, NodeStatus.Success);
+            AssertsHero();
         }
 
         private void KeepRunning()
@@ -56,12 +61,29 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         }
 
         [TestMethod]
-        public void Hero_Is_Blocked_By_Door_No_Key()
+        public void No_Key()
         {
             AddDoor();
 
             KeepRunning();
             Assert.AreEqual(result, NodeStatus.Failure);
+            AssertsHero(2);
+        }
+
+        [TestMethod]
+        public void With_Door_And_Key()
+        {
+            AddDoor();
+            hero.Items.Add(new Key());
+
+            KeepRunning();
+            Assert.AreEqual(result, NodeStatus.Success);
+            AssertsHero();
+        }
+
+        private void AssertsHero(int p = 4)
+        {
+            Assert.AreEqual(p, hero.Position.Y);
         }
     }
 }

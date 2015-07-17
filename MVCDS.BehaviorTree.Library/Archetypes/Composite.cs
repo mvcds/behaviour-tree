@@ -18,7 +18,6 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         }
 
         Func<NodeStatus> InstanceProcess = null;
-
         public NodeStatus Process()
         {
             foreach (INode child in Children)
@@ -30,7 +29,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             return InstanceProcess();
         }
 
-        internal void Process(Func<NodeStatus> process)
+        protected void Process(Func<NodeStatus> process)
         {
             InstanceProcess = process;
         }

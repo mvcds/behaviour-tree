@@ -16,13 +16,15 @@ namespace MVCDS.BehaviorTree.Library.Common
 
         private NodeStatus SequencialProcess()
         {
-            foreach (INode child in Children)
+            NodeStatus result = NodeStatus.Running;
+            for (var i = 0; i < Children.Count; i++)
             {
-                NodeStatus result = child.Process();
-                if (result != NodeStatus.Running)
-                    return result;
+                result = Children[i].Process();
+                if (result == NodeStatus.Failure)
+                    return NodeStatus.Failure;
             }
-            return NodeStatus.Running;
+
+            return result;
         }
     }
 }

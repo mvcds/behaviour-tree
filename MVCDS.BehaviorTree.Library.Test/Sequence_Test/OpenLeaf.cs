@@ -8,12 +8,12 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
 {
     internal class OpenLeaf: Leaf
     {
-        NodeStatus _status;
-
         public OpenLeaf(Hero hero, IOpenable target)
         {
             Character = hero;
             Target = target;
+
+            base.Process(TryOpen);
         }
 
         private Hero Character { get; set; }
@@ -31,9 +31,9 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
             }
         }
 
-        public override NodeStatus Process()
+        public bool CanTheHeroOpenIt 
         {
-            if (Target.IsLocked && IsNear)
+            get
             {
                 IItem key = Character.Items.FirstOrDefault(p => p is Key);
                 if (key != null)
@@ -41,9 +41,19 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
                     if (Target.Open())
                     {
                         Character.Items.Remove(key);
-                        return NodeStatus.Success;
+                        return true;
                     }
                 }
+                return false;
+            }
+        }
+
+        private NodeStatus TryOpen()
+        {
+            if (Target.IsLocked && IsNear)
+            {
+                if (CanTheHeroOpenIt)
+                    return NodeStatus.Success;
                 return NodeStatus.Failure;
             }
             else
@@ -53,6 +63,5 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         public override void Init()
         {
         }
-
     }
 }
