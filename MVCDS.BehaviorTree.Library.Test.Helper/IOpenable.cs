@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
+namespace MVCDS.BehaviorTree.Library.Test.Helper
 {
-    internal interface IOpenable: IPositionable
+    public interface IOpenable: IPositionable
     {
         bool IsLocked { get; }
 

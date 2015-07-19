@@ -1,26 +1,34 @@
-﻿using MVCDS.BehaviorTree.Library.Archetypes;
-using System;
+﻿using System;
+using MVCDS.BehaviorTree.Library.Archetypes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
+namespace MVCDS.BehaviorTree.Library.Test.Helper
 {
-    internal class OpenLeaf: Leaf
+    public class OpenLeaf: Leaf
     {
-        public OpenLeaf(Hero hero, IOpenable target)
+        public OpenLeaf(Map map, Hero hero, IOpenable target)
         {
+            Location = map;
             Character = hero;
             Target = target;
-
-            base.Process(TryOpen);
         }
+
+        private Map Location { get; set; }
 
         private Hero Character { get; set; }
 
         private IOpenable Target { get; set; }
-
-        private bool IsNear 
+        
+        private bool TargetCanBeUnlocked
+        {
+            get
+            {
+                return Target.IsLocked && IsNear;
+            }
+        }
+        private bool IsNear
         {
             get
             {
@@ -31,7 +39,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
             }
         }
 
-        public bool CanTheHeroOpenIt 
+        private bool CanTheHeroOpenIt
         {
             get
             {
@@ -48,20 +56,15 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
             }
         }
 
-        private NodeStatus TryOpen()
+        protected override NodeStatus InstanceProcess()
         {
-            if (Target.IsLocked && IsNear)
+            if (TargetCanBeUnlocked)
             {
                 if (CanTheHeroOpenIt)
                     return NodeStatus.Success;
                 return NodeStatus.Failure;
             }
-            else
-                return NodeStatus.Running;
-        }
-
-        public override void Init()
-        {
+            return NodeStatus.Success;
         }
     }
 }

@@ -8,30 +8,41 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 {
     abstract public class Composite: INode
     {
-        private List<INode> _children = new List<INode>();
+        public Composite()
+        {
+            Children = new List<INode>();
+        }
+
         public List<INode> Children
         {
+            get;
+            private set;
+        }
+
+        public bool IsEmpty 
+        { 
             get
             {
-                return _children;
+                return !Children.Any();
             }
         }
 
-        Func<NodeStatus> InstanceProcess = null;
         public NodeStatus Process()
         {
-            foreach (INode child in Children)
-            {
-                Leaf leaf = child as Leaf;
-                if (leaf != null)
-                    leaf.Init();
-            }
+            Children.ForEach(InitALeaf);
             return InstanceProcess();
         }
 
-        protected void Process(Func<NodeStatus> process)
+        private void InitALeaf(INode node)
         {
-            InstanceProcess = process;
+            Leaf leaf = node as Leaf;
+            if (leaf == null) 
+                return;
+
+            leaf.Init();
         }
+
+        abstract protected NodeStatus InstanceProcess();
+
     }
 }

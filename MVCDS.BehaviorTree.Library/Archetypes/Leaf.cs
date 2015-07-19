@@ -8,6 +8,16 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 {
     public abstract class Leaf: INode
     {
+        public Leaf()
+        {
+            actions = new Dictionary<NodeStatus, Action>()
+            {
+                { NodeStatus.Running, null},
+                { NodeStatus.Failure, null},
+                { NodeStatus.Success, null},
+            };
+        }
+
         private NodeStatus _last = NodeStatus.Running;
         private NodeStatus Result
         {
@@ -19,45 +29,34 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             {
                 if (_last != value)
                 {
+                    Action action = actions[value];
+                    if (action != null)
+                        action();
                     _last = value;
-                    switch (value)
-                    {
-                        case NodeStatus.Running:
-                            TryChangeResult(OnRun);
-                            break;
-                        case NodeStatus.Failure:
-                            TryChangeResult(OnFail);
-                            break;
-                        case NodeStatus.Success:
-                            TryChangeResult(OnSucced);
-                            break;
-                    }
                 }
             }
         }
 
-        public Action OnRun = null,
-            OnFail = null,
-            OnSucced = null;
+        private Dictionary<NodeStatus, Action> actions;
 
-        abstract public void Init();
 
-        Func<NodeStatus> InstanceProcess = null;
         public NodeStatus Process()
         {
             Result = InstanceProcess();
             return Result;
         }
 
-        private void TryChangeResult(Action result)
+        public T When<T>(NodeStatus status, Action @do = null)
+            where T : Leaf
         {
-            if (result != null)
-                result();
+            actions[status] = @do;
+            return this as T;
         }
 
-        protected void Process(Func<NodeStatus> process)
+        abstract protected NodeStatus InstanceProcess();
+
+        virtual public void Init()
         {
-            InstanceProcess = process;
         }
     }
 }

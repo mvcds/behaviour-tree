@@ -3,23 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
+namespace MVCDS.BehaviorTree.Library.Test.Helper
 {
-    internal class MoveLeaf: Leaf
+    public class MoveLeaf: Leaf
     {
-        public MoveLeaf(IPositionable source, Point2D target)
+        public MoveLeaf(Map map, IPositionable source, int x, int y)
         {
+            Location = map;
             Source = source;
-            Target = target;
-
-            base.Process(TryMove);
+            Target = new Point2D(x, y);
         }
+
+        private Map Location { get; set; }
 
         private IPositionable Source { get; set; }
 
         private Point2D Target { get; set; }
+
+        public Point2D Last { get; set; }
 
         private bool IsAtTarget
         {
@@ -33,38 +35,56 @@ namespace MVCDS.BehaviorTree.Library.Test.Sequence_Test
         {
             get
             {
-                return false;
+                return Location.Find(Target) != null;
             }
         }
-        
-        public override void Init()
-        {
-            //throw new NotImplementedException();
-        }
 
-        private NodeStatus TryMove()
+        protected override NodeStatus InstanceProcess()
         {
             if (IsAtTarget)
                 return NodeStatus.Success;
             else if (IsTargetBlocked)
                 return NodeStatus.Failure;
 
-            Move();
+            try
+            {
+                Move();
+            }
+            catch(CouldNotMoveException)
+            {
+                return NodeStatus.Failure;
+            }
 
             return NodeStatus.Running;
         }
-        
+
         private void Move()
         {
             int x = Source.Position.X + Move(Source.Position.X, Target.X);
             int y = Source.Position.Y + Move(Source.Position.Y, Target.Y);
 
-            Source.Position = new Point2D(x, y);
+            Location.Move(Source, x, y);
         }
 
         private int Move(int source, int target)
         {
             return target.CompareTo(source);
         }
+
+        public override void Init()
+        {
+            Last = Source.Position;
+        }
+
+    }
+
+    internal class CouldNotMoveException : Exception
+    {
+        public CouldNotMoveException(IPositionable positionable)
+        {
+            Positionable = positionable;
+        }
+
+        public IPositionable Positionable { get; private set; }
     }
 }
