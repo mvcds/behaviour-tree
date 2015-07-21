@@ -56,7 +56,7 @@ namespace MVCDS.BehaviorTree.Library.Test.Helper
             }
         }
 
-        protected override NodeStatus InstanceProcess()
+        protected override NodeStatus Process()
         {
             if (TargetCanBeUnlocked)
             {

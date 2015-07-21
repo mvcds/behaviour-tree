@@ -10,6 +10,11 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
     {
         public INode Child { get; private set; }
 
-        abstract public NodeStatus Process();
+        NodeStatus INode.Process()
+        {
+            return Process();
+        }
+
+        abstract protected NodeStatus Process();
     }
 }

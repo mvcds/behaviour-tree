@@ -39,10 +39,9 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         private Dictionary<NodeStatus, Action> actions;
 
-
-        public NodeStatus Process()
+        NodeStatus INode.Process()
         {
-            Result = InstanceProcess();
+            Result = Process();
             return Result;
         }
 
@@ -53,7 +52,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             return this as T;
         }
 
-        abstract protected NodeStatus InstanceProcess();
+        abstract protected NodeStatus Process();
 
         virtual public void Init()
         {

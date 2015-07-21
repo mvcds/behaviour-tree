@@ -9,7 +9,7 @@ namespace MVCDS.BehaviorTree.Library.Composites
 {
     public class Sequence: Composite
     {
-        protected override NodeStatus InstanceProcess()
+        protected override NodeStatus Process()
         {
             if (IsEmpty)
                 return NodeStatus.Success;

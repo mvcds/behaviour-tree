@@ -27,10 +27,10 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
-        public NodeStatus Process()
+        NodeStatus INode.Process()
         {
             Children.ForEach(InitALeaf);
-            return InstanceProcess();
+            return Process();
         }
 
         private void InitALeaf(INode node)
@@ -42,7 +42,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             leaf.Init();
         }
 
-        abstract protected NodeStatus InstanceProcess();
+        abstract protected NodeStatus Process();
 
     }
 }
