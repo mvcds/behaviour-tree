@@ -16,9 +16,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
 
             bool isRunning = false;
 
-            for (var i = 0; i < Children.Count; i++)
+            foreach (INode child in Children)
             {
-                NodeStatus result = Children[i].Process();
+                NodeStatus result = child.Process();
                 if (result == NodeStatus.Failure)
                     return NodeStatus.Failure;
                 else if (result == NodeStatus.Running)
