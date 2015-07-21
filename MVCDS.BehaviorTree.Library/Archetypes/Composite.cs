@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    abstract public class Composite: INode
+    abstract public partial class Composite: INode
     {
         public Composite(bool random = false)
         {
-            Children = new List<INode>();
+            Nodes = new List<INode>();
             IsRandom = random;
             
             if (IsRandom)
                 Shuffler = new NodeShuffler(this);
         }
 
-        public List<INode> Children
+        private List<INode> Nodes
         {
             get;
-            private set;
+            set;
         }
 
         public bool IsEmpty 
         { 
             get
             {
-                return !Children.Any();
+                return !Nodes.Any();
             }
         }
 
@@ -38,11 +38,11 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             private set;
         }
 
-        protected List<INode> Nodes
+        protected List<INode> Children
         {
             get
             {
-                return IsRandom ? Shuffler.Shuffled : Children;
+                return IsRandom ? Shuffler.Shuffled : Nodes;
             }
         }
 
@@ -50,8 +50,13 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         NodeStatus INode.Process()
         {
-            Children.ForEach(InitALeaf);
+            Nodes.ForEach(InitALeaf);
             return Process();
+        }
+
+        public void Add(INode node)
+        {
+            Nodes.Add(node);
         }
 
         private void InitALeaf(INode node)

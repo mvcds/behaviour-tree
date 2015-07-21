@@ -19,9 +19,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
             if (IsEmpty)
                 return NodeStatus.Success;
 
-            foreach (INode node in Nodes)
+            foreach (INode child in Children)
             {
-                NodeStatus result = node.Process();
+                NodeStatus result = child.Process();
                 if (result != NodeStatus.Running)
                     return result;
             }

@@ -47,7 +47,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Composites\Sequence.cs" />
-    <Compile Include="Composites\NodeShuffler.cs" />
+    <Compile Include="Archetypes\NodeShuffler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

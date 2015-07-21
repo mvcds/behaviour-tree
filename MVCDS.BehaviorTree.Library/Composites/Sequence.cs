@@ -30,7 +30,7 @@ namespace MVCDS.BehaviorTree.Library.Composites
         {
             try
             {
-                Nodes.ForEach(Execute);
+                Children.ForEach(Execute);
             }
             catch
             {
@@ -40,9 +40,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
             return IsRunning ? NodeStatus.Running : NodeStatus.Success;
         }
 
-        private void Execute(INode node)
+        private void Execute(INode child)
         {
-            NodeStatus result = node.Process();
+            NodeStatus result = child.Process();
             if (result == NodeStatus.Failure)
                 throw new Exception();
             else if (result == NodeStatus.Running)

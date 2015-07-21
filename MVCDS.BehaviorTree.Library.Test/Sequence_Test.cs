@@ -35,7 +35,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             hero = new Hero(map, 0, 0);
             hero.Behaviour = new Behaviour(sequence);
             
-            sequence.Children.Add(new MoveLeaf(map, hero, 0, 4));
+            sequence.Add(new MoveLeaf(map, hero, 0, 4));
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             Door door = new Door(map, 0, 3);
 
             OpenLeaf openLeaf = new OpenLeaf(map, hero, door);
-            sequence.Children.Add(openLeaf);
+            sequence.Add(openLeaf);
         }
 
         private void Test(NodeStatus expected, int y)
