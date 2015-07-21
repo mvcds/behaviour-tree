@@ -7,25 +7,48 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Composites
 {
-    public class Sequence: Composite
+    public class Sequence: Composite, IRandom
     {
+        public Sequence(bool random = false)
+        {
+            IsRandom = random;
+        }
+
+        public bool IsRandom { get; private set; }
+
+        bool IsRunning { get; set; }
+
         protected override NodeStatus Process()
         {
             if (IsEmpty)
                 return NodeStatus.Success;
 
-            bool isRunning = false;
+            IsRunning = false;
 
-            foreach (INode child in Children)
+            List<INode> children = IsRandom
+                ? Children.OrderBy(p => Guid.NewGuid())
+                    .ToList()
+                : Children;
+
+            try 
             {
-                NodeStatus result = child.Process();
-                if (result == NodeStatus.Failure)
-                    return NodeStatus.Failure;
-                else if (result == NodeStatus.Running)
-                    isRunning = true;
+                children.ForEach(Execute);
+            }
+            catch
+            {
+                return NodeStatus.Failure;
             }
 
-            return isRunning ? NodeStatus.Running : NodeStatus.Success;
+            return IsRunning ? NodeStatus.Running : NodeStatus.Success;
+        }
+
+        private void Execute(INode child)
+        {
+            NodeStatus result = child.Process();
+            if (result == NodeStatus.Failure)
+                throw new Exception();
+            else if (result == NodeStatus.Running)
+                IsRunning = true;
         }
     }
 }

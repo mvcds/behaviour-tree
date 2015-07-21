@@ -18,6 +18,11 @@ namespace MVCDS.BehaviorTree.Library
         NodeStatus Process();
     }
 
+    public interface IRandom
+    {
+        bool IsRandom { get; }
+    }
+
     public class Behaviour: INode
     {
         private INode Root;
