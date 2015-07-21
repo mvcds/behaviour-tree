@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Composites
 {
-    public class Sequence: Composite, IRandom
+    public sealed class Sequence: Composite
     {
         public Sequence(bool random = false)
+            : base(random) 
         {
-            IsRandom = random;
         }
-
-        public bool IsRandom { get; private set; }
 
         bool IsRunning { get; set; }
 
@@ -25,14 +23,14 @@ namespace MVCDS.BehaviorTree.Library.Composites
 
             IsRunning = false;
 
-            List<INode> children = IsRandom
-                ? Children.OrderBy(p => Guid.NewGuid())
-                    .ToList()
-                : Children;
+            return Execute();
+        }
 
-            try 
+        private NodeStatus Execute()
+        {
+            try
             {
-                children.ForEach(Execute);
+                Nodes.ForEach(Execute);
             }
             catch
             {
@@ -42,9 +40,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
             return IsRunning ? NodeStatus.Running : NodeStatus.Success;
         }
 
-        private void Execute(INode child)
+        private void Execute(INode node)
         {
-            NodeStatus result = child.Process();
+            NodeStatus result = node.Process();
             if (result == NodeStatus.Failure)
                 throw new Exception();
             else if (result == NodeStatus.Running)
