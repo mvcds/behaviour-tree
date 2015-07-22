@@ -50,8 +50,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Composites\Composite_Test.cs" />
+    <Compile Include="Composites\Sequence_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sequence_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVCDS.BehaviorTree.Library.Test.Helper\MVCDS.BehaviorTree.Library.Test.Helper.csproj">
