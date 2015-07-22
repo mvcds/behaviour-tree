@@ -8,6 +8,11 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 {
     public abstract class Decorator: INode
     {
+        public Decorator(INode node)
+        {
+            Child = node;
+        }
+
         public INode Child { get; private set; }
 
         NodeStatus INode.Process()

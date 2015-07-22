@@ -48,6 +48,10 @@
     </Compile>
     <Compile Include="Composites\Sequence.cs" />
     <Compile Include="Archetypes\NodeShuffler.cs" />
+    <Compile Include="Decorators\Inverter.cs" />
+    <Compile Include="Decorators\Repeater.cs" />
+    <Compile Include="Decorators\RepeatUntilFail.cs" />
+    <Compile Include="Decorators\Succeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
