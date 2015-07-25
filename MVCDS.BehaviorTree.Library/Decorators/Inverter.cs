@@ -17,7 +17,6 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         protected override NodeStatus Process()
         {
             NodeStatus result = Child.Process();
-
             switch(result)
             {
                 case NodeStatus.Success:
@@ -25,7 +24,9 @@ namespace MVCDS.BehaviorTree.Library.Decorators
                 case NodeStatus.Failure:
                     return NodeStatus.Success;
             }
+
             return NodeStatus.Running;
         }
+
     }
 }

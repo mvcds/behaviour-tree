@@ -8,40 +8,33 @@ namespace MVCDS.BehaviorTree.Library.Test
     [TestClass]
     public class Suceeder_Test
     {
-
         [TestMethod]
         public void Node_Succeeds()
         {
-            Succeeder CUD = CreateNode(NodeStatus.Success);
-            Asserts(CUD);
+            Succeeder cud = CreateNode(NodeStatus.Success);
+            TestHelper.AssertProcess(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Keeps_Running()
         {
-            Succeeder CUD = CreateNode(NodeStatus.Running);
-            Asserts(CUD);
+            Succeeder cud = CreateNode(NodeStatus.Running);
+            TestHelper.AssertProcess(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
-            Succeeder CUD = CreateNode(NodeStatus.Failure);
-            Asserts(CUD);
+            Succeeder cud = CreateNode(NodeStatus.Failure);
+            TestHelper.AssertProcess(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Throws_Exception()
         {
             Mock<INode> node = TestHelper.Mock<INode>(new Exception());
-            Succeeder CUD = new Succeeder(node.Object);
-            Asserts(CUD);
-        }
-
-        private void Asserts(Succeeder cud)
-        {
-            NodeStatus result = (cud as INode).Process();
-            Assert.AreEqual(NodeStatus.Success, result);
+            Succeeder cud = new Succeeder(node.Object);
+            TestHelper.AssertProcess(cud, NodeStatus.Success);
         }
 
         private Succeeder CreateNode(NodeStatus returns)

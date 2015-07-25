@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         internal static Mock<T> Mock<T>(NodeStatus returns)
             where T : class, INode
         {
-            Mock<T> mock = Factory.Create<T>();
+            Mock<T> mock = TestHelper.Mock<T>();
             mock.Setup<NodeStatus>(p => p.Process())
                 .Returns(returns);
             return mock;
@@ -44,10 +45,17 @@ namespace MVCDS.BehaviorTree.Library.Test
         internal static Mock<T> Mock<T>(Exception exception)
             where T : class, INode
         {
-            Mock<T> mock = Factory.Create<T>();
+            Mock<T> mock = TestHelper.Mock<T>();
             mock.Setup<NodeStatus>(p => p.Process())
                 .Throws(exception);
             return mock;
+        }
+
+        internal static void AssertProcess<T>(T cud, NodeStatus expected)
+            where T : INode
+        {
+            NodeStatus result = (cud as INode).Process();
+            Assert.AreEqual(expected, result);
         }
     }
 }
