@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
+    //TODO: try to use the repeater somewhere around here
     public sealed class RepeatUntilFail : Decorator
     {
         public RepeatUntilFail(INode node)

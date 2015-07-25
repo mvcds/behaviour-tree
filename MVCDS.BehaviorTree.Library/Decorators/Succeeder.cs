@@ -16,7 +16,13 @@ namespace MVCDS.BehaviorTree.Library.Decorators
 
         protected override NodeStatus Process()
         {
-            Child.Process();
+            try
+            {
+                Child.Process();
+            }
+            catch
+            {
+            }
             return NodeStatus.Success;
         }
     }
