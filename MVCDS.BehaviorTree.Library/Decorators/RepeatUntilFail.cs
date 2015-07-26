@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
-    //TODO: try to use the repeater somewhere around here
     public sealed class RepeatUntilFail : Decorator
     {
         public RepeatUntilFail(INode node)
@@ -15,13 +14,20 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         {
         }
 
+        bool HasFailed { get; set; }
+
         protected override NodeStatus Process()
         {
-            NodeStatus result = NodeStatus.Running;
-            while (result != NodeStatus.Failure)
-                result = Child.Process();
-            return NodeStatus.Success;
+            HasFailed = false;
+
+            return Execute();
         }
 
+        private NodeStatus Execute()
+        {
+            if (Child.Process() == NodeStatus.Failure)
+                HasFailed = true;
+            return HasFailed ? NodeStatus.Success : Execute();
+        }
     }
 }

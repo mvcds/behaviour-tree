@@ -16,7 +16,7 @@ namespace MVCDS.BehaviorTree.Library.Test
                 Result = result;
             }
 
-            public NodeStatus Result { get; private set; }
+            NodeStatus Result { get; set; }
 
             protected override void Init()
             {

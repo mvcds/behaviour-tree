@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
-    //TODO: review porpouse
     public sealed class Repeater : Decorator
     {
         public Repeater(INode node, Func<bool> shouldExecute)
