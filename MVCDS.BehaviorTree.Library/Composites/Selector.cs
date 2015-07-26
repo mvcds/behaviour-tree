@@ -13,20 +13,31 @@ namespace MVCDS.BehaviorTree.Library.Composites
             : base(random)
         {
         }
+        
+        bool IsRunning { get; set; }
 
         protected override NodeStatus Process()
         {
             if (IsEmpty)
                 return NodeStatus.Success;
 
+            IsRunning = false;
+
+            return Execute();
+        }
+
+        private NodeStatus Execute()
+        {
             foreach (INode child in Children)
             {
                 NodeStatus result = child.Process();
-                if (result != NodeStatus.Running)
-                    return result;
+                if (result == NodeStatus.Success)
+                    return NodeStatus.Success;
+                else if (result == NodeStatus.Running)
+                    IsRunning = true;
             }
 
-            return NodeStatus.Running;
+            return IsRunning ? NodeStatus.Running : NodeStatus.Failure;
         }
     }
 }
