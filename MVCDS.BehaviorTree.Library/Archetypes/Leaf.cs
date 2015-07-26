@@ -54,7 +54,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         abstract protected NodeStatus Process();
 
-        virtual public void Init()
+        virtual protected internal void Init()
         {
         }
     }
