@@ -10,23 +10,29 @@ namespace MVCDS.BehaviorTree.Library.Test
         [TestMethod]
         public void No_Root()
         {
-            try
-            {
-                Behaviour behaviour = new Behaviour(null);
-            }
-            catch(Exception e)
-            {
-                Assert.IsTrue(e is ArgumentNullException);
-            }
+            CreateBehaviour(null);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
             Mock<INode> node = TestHelper.Mock<INode>(NodeStatus.Failure);
-            Behaviour behaviour = new Behaviour(node.Object);
+            Behaviour behaviour = CreateBehaviour(node.Object);
 
             Assert.AreEqual(NodeStatus.Failure, behaviour.Process());
+        }
+
+        private Behaviour CreateBehaviour(INode node)
+        {
+            try
+            {
+                return new Behaviour(node);
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(e is ArgumentNullException);
+                return null;
+            }
         }
     }
 }
