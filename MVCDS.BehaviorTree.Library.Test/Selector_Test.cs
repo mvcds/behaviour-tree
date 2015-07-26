@@ -1,14 +1,16 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MVCDS.BehaviorTree.Library.Composites;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using MVCDS.BehaviorTree.Library.Composites;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Test
 {
     [TestClass]
-    public class Sequential_Selector_Test
+    public class Selector_Test
     {
         [TestMethod]
         public void No_Child()
@@ -47,7 +49,7 @@ namespace MVCDS.BehaviorTree.Library.Test
 
         private Selector CreateNode(params NodeStatus[] returns)
         {
-            Selector selector = new Selector();
+            Selector selector = CreateSelector();
             foreach (NodeStatus @return in returns)
             {
                 Mock<INode> node = TestHelper.Mock<INode>(@return);
@@ -55,6 +57,11 @@ namespace MVCDS.BehaviorTree.Library.Test
             }
 
             return selector;
+        }
+
+        protected virtual Selector CreateSelector()
+        {
+            return new Selector();
         }
     }
 }
