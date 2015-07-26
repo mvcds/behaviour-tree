@@ -62,6 +62,7 @@
     <Compile Include="Repeater_Test.cs" />
     <Compile Include="Behaviour_Test.cs" />
     <Compile Include="Leaf_Test.cs" />
+    <Compile Include="Sequence_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVCDS.BehaviorTree.Library\MVCDS.BehaviorTree.Library.csproj">
