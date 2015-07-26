@@ -27,6 +27,13 @@ namespace MVCDS.BehaviorTree.Library.Test
         }
 
         [TestMethod]
+        public void Node_Keeps_Running()
+        {
+            Selector cud = CreateNode(NodeStatus.Running);
+            TestHelper.AssertProcess(cud, NodeStatus.Running);
+        }
+
+        [TestMethod]
         public void First_Fail()
         {
             Selector cud = CreateNode(NodeStatus.Failure, NodeStatus.Success);
