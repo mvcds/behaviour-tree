@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
+    //TODO: review porpouse
     public sealed class Repeater : Decorator
     {
         public Repeater(INode node, Func<bool> shouldExecute)
@@ -21,7 +22,16 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         {
             NodeStatus result = NodeStatus.Running;
             while (ShouldExecute())
-                result = Child.Process();
+            {
+                try
+                {
+                    result = Child.Process();
+                }
+                catch
+                {
+                    return NodeStatus.Failure;
+                }
+            }
             return result;
         }
 
