@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MVCDS.BehaviorTree.Library.Test
 {
     [TestClass]
-    public class Selector_Test_As_Random: Selector_Test
+    public class Selector_Test_Randomly: Selector_Test
     {
         protected override Selector CreateSelector()
         {

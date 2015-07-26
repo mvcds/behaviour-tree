@@ -53,7 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Selector_Test_As_Random.cs" />
+    <Compile Include="Selector_Test_Randomly.cs" />
     <Compile Include="Selector_Test.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
