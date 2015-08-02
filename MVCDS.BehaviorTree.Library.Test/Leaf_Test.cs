@@ -18,9 +18,8 @@ namespace MVCDS.BehaviorTree.Library.Test
 
             NodeStatus Result { get; set; }
 
-            protected override void Init()
+            public override void Refresh()
             {
-                base.Init();
             }
 
             protected override NodeStatus Process()

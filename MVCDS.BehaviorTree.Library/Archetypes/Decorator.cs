@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public abstract class Decorator: INode
+    public interface IDecorator : INode
+    {
+        INode Child { get; }
+    }
+
+    public abstract class Decorator : IDecorator
     {
         public Decorator(INode node)
         {

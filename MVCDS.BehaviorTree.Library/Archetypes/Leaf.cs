@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public abstract class Leaf: INode
+    public interface ILeaf : INode
+    {
+        void Refresh();
+    }
+
+    public abstract class Leaf : ILeaf
     {
         public Leaf()
         {
@@ -54,8 +59,6 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         abstract protected NodeStatus Process();
 
-        virtual protected internal void Init()
-        {
-        }
+        abstract public void Refresh();
     }
 }

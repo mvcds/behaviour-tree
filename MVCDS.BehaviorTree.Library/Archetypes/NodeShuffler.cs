@@ -7,25 +7,22 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    abstract public partial class Composite : INode
+    public class NodeShuffler
     {
-        private class NodeShuffler
+        public NodeShuffler(IComposite source)
         {
-            public NodeShuffler(Composite source)
-            {
-                Source = source;
-            }
+            Source = source;
+        }
 
-            private Composite Source { get; set; }
+        private IComposite Source { get; set; }
 
-            public List<INode> Shuffled 
+        public List<INode> Shuffled
+        {
+            get
             {
-                get
-                {
-                    return Source.Nodes
-                        .OrderBy(p => Guid.NewGuid())
-                        .ToList();
-                }
+                return Source.Nodes
+                    .OrderBy(p => Guid.NewGuid())
+                    .ToList();
             }
         }
     }

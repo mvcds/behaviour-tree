@@ -7,28 +7,45 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    abstract public partial class Composite: INode
+    public interface IComposite : INode
+    {
+        bool IsEmpty { get; }
+        
+        bool IsRandom { get; }
+
+        INode[] Nodes { get; }
+
+        void Add(INode node);
+        
+        //TODO: remove a node
+    }
+
+    abstract public partial class Composite : IComposite
     {
         public Composite(bool random = false)
         {
-            Nodes = new List<INode>();
+            _nodes = new List<INode>();
             IsRandom = random;
             
             if (IsRandom)
                 Shuffler = new NodeShuffler(this);
         }
 
-        private List<INode> Nodes
+        private List<INode> _nodes;
+        INode[] IComposite.Nodes
         {
-            get;
-            set;
+            get
+            {
+                //TODO: copy the nodes before return them
+                return _nodes.ToArray();
+            }
         }
 
         public bool IsEmpty 
         { 
             get
             {
-                return !Nodes.Any();
+                return !_nodes.Any();
             }
         }
 
@@ -42,7 +59,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         {
             get
             {
-                return IsRandom ? Shuffler.Shuffled : Nodes;
+                return IsRandom ? Shuffler.Shuffled : _nodes;
             }
         }
 
@@ -50,22 +67,22 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         NodeStatus INode.Process()
         {
-            Nodes.ForEach(InitALeaf);
+            _nodes.ForEach(InitALeaf);
             return Process();
         }
 
         public void Add(INode node)
         {
-            Nodes.Add(node);
+            _nodes.Add(node);
         }
 
         private void InitALeaf(INode node)
         {
-            Leaf leaf = node as Leaf;
+            ILeaf leaf = node as ILeaf;
             if (leaf == null) 
                 return;
 
-            leaf.Init();
+            leaf.Refresh();
         }
 
         abstract protected NodeStatus Process();
