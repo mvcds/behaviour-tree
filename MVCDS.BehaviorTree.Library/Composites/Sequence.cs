@@ -7,15 +7,28 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Composites
 {
+    /// <summary>
+    /// All of its children must succeed for this to succedd as well
+    /// </summary>
     public sealed class Sequence: Composite
     {
+        /// <summary>
+        /// Creates a Sequence node
+        /// (AND gate)
+        /// </summary>
+        /// <value>false</value> if the order of its nodes are processed matter
+        /// <value>true</value> if
         public Sequence(bool random = false)
             : base(random) 
         {
         }
 
-        bool IsRunning { get; set; }
+        private bool IsRunning { get; set; }
 
+        /// <summary>
+        /// If one of its children fail, the node fail too
+        /// </summary>
+        /// <returns>The last status of the node</returns>
         protected override NodeStatus Process()
         {
             if (IsEmpty)

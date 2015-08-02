@@ -7,15 +7,28 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Composites
 {
+    /// <summary>
+    /// If one of its children succeed it will succeed too
+    /// </summary>
     public sealed class Selector : Composite
     {
+        /// <summary>
+        /// Creates a Selector node
+        /// (OR gate)
+        /// </summary>
+        /// <value>false</value> if the order of its nodes are processed matter
+        /// <value>true</value> if the order of its nodes can be processed randomly
         public Selector(bool random = false)
             : base(random)
         {
         }
         
-        bool IsRunning { get; set; }
-
+        private bool IsRunning { get; set; }
+        
+        /// <summary>
+        /// If one of its children succeed, the node succeed too
+        /// </summary>
+        /// <returns>The last status of the node</returns>
         protected override NodeStatus Process()
         {
             if (IsEmpty)
