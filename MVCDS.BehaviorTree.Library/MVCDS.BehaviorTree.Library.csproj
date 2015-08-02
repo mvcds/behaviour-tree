@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\MVCDS.BehaviorTree.Library.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,12 +43,12 @@
     <Compile Include="Archetypes\Composite.cs" />
     <Compile Include="Archetypes\Decorator.cs" />
     <Compile Include="Archetypes\Leaf.cs" />
+    <Compile Include="Archetypes\Shuffler.cs" />
     <Compile Include="Behaviour.cs" />
     <Compile Include="Composites\Selector.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Composites\Sequence.cs" />
-    <Compile Include="Archetypes\NodeShuffler.cs" />
     <Compile Include="Decorators\Inverter.cs" />
     <Compile Include="Decorators\Repeater.cs" />
     <Compile Include="Decorators\RepeatUntilFail.cs" />

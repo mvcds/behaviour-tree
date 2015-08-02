@@ -20,18 +20,32 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         //TODO: remove a node
     }
 
+    /// <summary>
+    /// MVCDS' implementation of a node which may contain N children
+    /// </summary>
     abstract public partial class Composite : IComposite
     {
+        /// <summary>
+        /// Creates a Composite node
+        /// </summary>
+        /// <param name="random">
+        /// <value>false</value> if the order of its nodes are processed matter
+        /// <value>true</value> if the order of its nodes can be processed randomly
+        /// </param>
         public Composite(bool random = false)
         {
             _nodes = new List<INode>();
             IsRandom = random;
             
             if (IsRandom)
-                Shuffler = new NodeShuffler(this);
+                Shuffler = new Shuffler(this);
         }
 
         private List<INode> _nodes;
+
+        /// <summary>
+        /// Its nodes as they are
+        /// </summary>
         INode[] IComposite.Nodes
         {
             get
@@ -41,6 +55,9 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
+        /// <summary>
+        /// Does the node contain at least one node?
+        /// </summary>
         public bool IsEmpty 
         { 
             get
@@ -49,28 +66,45 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
+        /// <summary>
+        /// Was this node created for random process or not?
+        /// </summary>
         public bool IsRandom
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Its node as they should be proccessed
+        /// </summary>
         protected List<INode> Children
         {
             get
             {
-                return IsRandom ? Shuffler.Shuffled : _nodes;
+                return IsRandom 
+                    ? Shuffler.Shuffle() 
+                    : (this as IComposite).Nodes
+                        .ToList();
             }
         }
 
-        NodeShuffler Shuffler { get; set; }
+        Shuffler Shuffler { get; set; }
 
+        /// <summary>
+        /// Processes each node
+        /// </summary>
+        /// <returns>The last status of the node</returns>
         NodeStatus INode.Process()
         {
             _nodes.ForEach(InitALeaf);
             return Process();
         }
 
+        /// <summary>
+        /// Inserts a new node as its children
+        /// </summary>
+        /// <param name="node">The node to be added</param>
         public void Add(INode node)
         {
             _nodes.Add(node);
@@ -85,6 +119,10 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             leaf.Refresh();
         }
 
+        /// <summary>
+        /// Processes each node
+        /// </summary>
+        /// <returns>The last status of the node</returns>
         abstract protected NodeStatus Process();
     }
 }
