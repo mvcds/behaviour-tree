@@ -16,11 +16,13 @@ namespace MVCDS.BehaviorTree.Library
         Failure
     }
 
+    //TODO: nodes shouldn't be refreshed?
     public interface INode
     {
         NodeStatus Process();
     }
 
+    //TODO: can I yield the return?
     /// <summary>
     /// MVCDS' implementation of a behaviour
     /// </summary>
