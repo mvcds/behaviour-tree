@@ -16,8 +16,8 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         INode[] Nodes { get; }
 
         void Add(INode node);
-        
-        //TODO: remove a node
+
+        bool Remmove(INode node);
     }
 
     /// <summary>
@@ -108,6 +108,16 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         public void Add(INode node)
         {
             _nodes.Add(node);
+        }
+
+        /// <summary>
+        /// Removes the node, if available
+        /// </summary>
+        /// <param name="node">The node to be removed</param>
+        /// <returns>true if item is successfully removed; otherwise, false</returns>
+        public bool Remmove(INode node)
+        {
+            return _nodes.Remove(node);
         }
 
         private void InitALeaf(INode node)
