@@ -26,7 +26,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// <summary>
         /// The node it contains
         /// </summary>
-        //TODO: copy the nodes before return them
+        //TODO: copy the nodes before return them?
         public INode Child { get; private set; }
 
         /// <summary>

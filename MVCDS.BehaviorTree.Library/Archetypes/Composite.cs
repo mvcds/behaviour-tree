@@ -23,7 +23,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         {
             _nodes = new List<INode>();
             IsRandom = random;
-            
+
             if (IsRandom)
                 Shuffler = new Shuffler(this);
         }
@@ -37,7 +37,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         {
             get
             {
-                //TODO: copy the nodes before return them
+                //TODO: copy the nodes before return them?
                 return _nodes.ToArray();
             }
         }
@@ -45,8 +45,8 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// <summary>
         /// Does the node contain at least one node?
         /// </summary>
-        public bool IsEmpty 
-        { 
+        public bool IsEmpty
+        {
             get
             {
                 return !_nodes.Any();
@@ -69,8 +69,8 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         {
             get
             {
-                return IsRandom 
-                    ? Shuffler.Shuffle() 
+                return IsRandom
+                    ? Shuffler.Shuffle()
                     : (this as IComposite).Nodes
                         .ToList();
             }
@@ -110,7 +110,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         private void InitALeaf(INode node)
         {
             ILeaf leaf = node as ILeaf;
-            if (leaf == null) 
+            if (leaf == null)
                 return;
 
             leaf.Refresh();
