@@ -37,7 +37,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             where T : class, INode
         {
             Mock<T> mock = TestHelper.Mock<T>();
-            mock.Setup<NodeStatus>(p => p.Process())
+            mock.Setup<NodeStatus>(p => p.Result)
                 .Returns(returns);
             return mock;
         }
@@ -46,7 +46,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             where T : class, INode
         {
             Mock<T> mock = TestHelper.Mock<T>();
-            mock.Setup<NodeStatus>(p => p.Process())
+            mock.Setup<NodeStatus>(p => p.Result)
                 .Throws(exception);
             return mock;
         }
@@ -54,7 +54,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         internal static void AssertProcess<T>(T cud, NodeStatus expected)
             where T : INode
         {
-            NodeStatus result = (cud as INode).Process();
+            NodeStatus result = (cud as INode).Result;
             Assert.AreEqual(expected, result);
         }
     }

@@ -24,33 +24,34 @@ namespace MVCDS.BehaviorTree.Library.Composites
         }
         
         private bool IsRunning { get; set; }
-        
-        /// <summary>
-        /// If one of its children succeed, the node succeed too
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        protected override NodeStatus Process()
+
+        public override NodeStatus Result
         {
-            if (IsEmpty)
-                return NodeStatus.Success;
+            get
+            {
+                if (IsEmpty)
+                    return NodeStatus.Success;
 
-            IsRunning = false;
+                IsRunning = false;
 
-            return Execute();
+                return Execute();
+            }
         }
 
         private NodeStatus Execute()
         {
+            NodeStatus result;
             foreach (INode child in Children)
             {
-                NodeStatus result = child.Process();
+                result = child.Result;
                 if (result == NodeStatus.Success)
-                    return NodeStatus.Success;
+                    return result;
                 else if (result == NodeStatus.Running)
                     IsRunning = true;
             }
 
-            return IsRunning ? NodeStatus.Running : NodeStatus.Failure;
+            result = IsRunning ? NodeStatus.Running : NodeStatus.Failure;
+            return result;
         }
     }
 }

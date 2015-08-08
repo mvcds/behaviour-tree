@@ -27,26 +27,24 @@ namespace MVCDS.BehaviorTree.Library.Decorators
 
         private Func<bool> ShouldExecute { get; set; }
 
-        /// <summary>
-        /// Process its child
-        /// </summary>
-        /// <returns>The last status of its child or a failure</returns>
-        protected override NodeStatus Process()
+        public override NodeStatus Result
         {
-            NodeStatus result = NodeStatus.Running;
-            while (ShouldExecute())
+            get 
             {
-                try
+                NodeStatus result = NodeStatus.Running;
+                while (ShouldExecute())
                 {
-                    result = Child.Process();
+                    try
+                    {
+                        result = Child.Result;
+                    }
+                    catch
+                    {
+                        return NodeStatus.Failure;
+                    }
                 }
-                catch
-                {
-                    return NodeStatus.Failure;
-                }
+                return result;
             }
-            return result;
         }
-
     }
 }

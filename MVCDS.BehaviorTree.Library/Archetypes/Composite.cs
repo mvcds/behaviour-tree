@@ -76,17 +76,12 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
-        Shuffler Shuffler { get; set; }
-
-        /// <summary>
-        /// Processes each node
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        NodeStatus INode.Process()
+        abstract public NodeStatus Result
         {
-            _nodes.ForEach(InitALeaf);
-            return Process();
+            get;
         }
+
+        Shuffler Shuffler { get; set; }
 
         /// <summary>
         /// Inserts a new node as its children
@@ -106,20 +101,5 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         {
             return _nodes.Remove(node);
         }
-
-        private void InitALeaf(INode node)
-        {
-            ILeaf leaf = node as ILeaf;
-            if (leaf == null)
-                return;
-
-            leaf.Refresh();
-        }
-
-        /// <summary>
-        /// Processes each node
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        abstract protected NodeStatus Process();
     }
 }

@@ -19,7 +19,7 @@ namespace MVCDS.BehaviorTree.Library
     //TODO: nodes shouldn't be refreshed?
     public interface INode
     {
-        NodeStatus Process();
+        NodeStatus Result { get; }
     }
 
     //TODO: can I yield the return?
@@ -42,15 +42,18 @@ namespace MVCDS.BehaviorTree.Library
             Root = root;
         }
 
-        /// <summary>
-        /// Processes each node
-        /// </summary>
-        /// <returns>The last status of the behaviour</returns>
-        public NodeStatus Process()
+        public NodeStatus Result
         {
-            NodeStatus result;
-            while ((result = Root.Process()) == NodeStatus.Running);
-            return result;
+            get
+            {
+                NodeStatus result;
+                do
+                {
+                    result = Root.Result;
+                }
+                while (result == NodeStatus.Running);
+                return result;
+            }
         }
     }
 }

@@ -26,7 +26,8 @@ namespace MVCDS.BehaviorTree.Library.Test
                 cud = new FakeLeaf(NodeStatus.Failure);
             });
 
-            (cud as INode).Process();
+            NodeStatus result = (cud as INode).Result;
+            Assert.AreEqual(NodeStatus.Success, result);
             TestHelper.AssertProcess(cud, NodeStatus.Failure);
         }
 

@@ -21,23 +21,21 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         {
         }
 
-        /// <summary>
-        /// Inverts the result of its child
-        /// </summary>
-        /// <returns>The inversion of the last status of its child</returns>
-        protected override NodeStatus Process()
+        public override NodeStatus Result
         {
-            NodeStatus result = Child.Process();
-            switch(result)
+            get 
             {
-                case NodeStatus.Success:
-                    return NodeStatus.Failure;
-                case NodeStatus.Failure:
-                    return NodeStatus.Success;
+                NodeStatus result = Child.Result;
+                switch(result)
+                {
+                    case NodeStatus.Success:
+                        return NodeStatus.Failure;
+                    case NodeStatus.Failure:
+                        return NodeStatus.Success;
+                }
+
+                return NodeStatus.Running;
             }
-
-            return NodeStatus.Running;
         }
-
     }
 }

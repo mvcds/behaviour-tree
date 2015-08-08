@@ -26,13 +26,14 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
         private NodeStatus _last = NodeStatus.Running;
 
-        private NodeStatus Result
+        public NodeStatus Result
         {
             get
             {
+                Result = Process();
                 return _last;
             }
-            set
+            protected set
             {
                 if (_last != value)
                 {
@@ -45,16 +46,6 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         }
 
         private Dictionary<NodeStatus, Action> actions;
-        
-        /// <summary>
-        /// Processes each node
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        NodeStatus INode.Process()
-        {
-            Result = Process();
-            return Result;
-        }
 
         /// <summary>
         /// Allows to add special behaviour when something changes

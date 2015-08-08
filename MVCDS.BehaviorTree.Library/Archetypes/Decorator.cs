@@ -28,20 +28,10 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// </summary>
         //TODO: copy the nodes before return them?
         public INode Child { get; private set; }
-
-        /// <summary>
-        /// Processes its node
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        NodeStatus INode.Process()
+        
+        abstract public NodeStatus Result
         {
-            return Process();
+            get;
         }
-
-        /// <summary>
-        /// Processes its node
-        /// </summary>
-        /// <returns>The last status of the node</returns>
-        abstract protected NodeStatus Process();
     }
 }

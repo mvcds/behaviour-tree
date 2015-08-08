@@ -19,7 +19,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             Mock<INode> node = TestHelper.Mock<INode>(NodeStatus.Failure);
             Behaviour behaviour = CreateBehaviour(node.Object);
 
-            Assert.AreEqual(NodeStatus.Failure, behaviour.Process());
+            Assert.AreEqual(NodeStatus.Failure, behaviour.Result);
         }
 
         private Behaviour CreateBehaviour(INode node)

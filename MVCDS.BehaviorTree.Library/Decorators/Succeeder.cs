@@ -21,20 +21,21 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         {
         }
 
-        /// <summary>
-        /// Process its child
-        /// </summary>
-        /// <returns>Success</returns>
-        protected override NodeStatus Process()
+        public NodeStatus ChildResult { get; private set; }
+
+        public override NodeStatus Result
         {
-            try
+            get 
             {
-                Child.Process();
+                try
+                {
+                    ChildResult = Child.Result;
+                }
+                catch
+                {
+                }
+                return NodeStatus.Success;
             }
-            catch
-            {
-            }
-            return NodeStatus.Success;
         }
     }
 }

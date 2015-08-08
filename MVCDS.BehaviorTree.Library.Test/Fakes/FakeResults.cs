@@ -18,10 +18,13 @@ namespace MVCDS.BehaviorTree.Library.Test.Fake
         }
 
         Queue<NodeStatus> Results { get; set; }
-            
-        public NodeStatus Process()
+
+        public NodeStatus Result
         {
-            return Results.Dequeue();
+            get
+            {
+                return Results.Dequeue();
+            }
         }
 
         internal static T CreateNodes<T>(T composite, params NodeStatus[] returns)

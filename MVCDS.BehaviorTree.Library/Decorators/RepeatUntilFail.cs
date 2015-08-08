@@ -18,23 +18,23 @@ namespace MVCDS.BehaviorTree.Library.Decorators
             //TODO: can I use the repeater inside?
         }
 
+        //TODO: use the result to not need the setter
         private bool HasFailed { get; set; }
 
-        /// <summary>
-        /// Process its child
-        /// </summary>
-        /// <returns>Success</returns>
-        //TODO: review my "always success politic"
-        protected override NodeStatus Process()
+        public override NodeStatus Result
         {
-            HasFailed = false;
+            get 
+            {
+                HasFailed = false;
 
-            return Execute();
+                return Execute();
+            }
         }
 
         private NodeStatus Execute()
         {
-            if (Child.Process() == NodeStatus.Failure)
+            NodeStatus result = Child.Result;
+            if (result == NodeStatus.Failure)
                 HasFailed = true;
             return HasFailed ? NodeStatus.Success : Execute();
         }

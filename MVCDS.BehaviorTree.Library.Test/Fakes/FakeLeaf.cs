@@ -12,18 +12,23 @@ namespace MVCDS.BehaviorTree.Library.Test.Fake
     {
         public FakeLeaf(NodeStatus result)
         {
-            Result = result;
+            MyResult = result;
         }
-
-        NodeStatus Result { get; set; }
 
         public override void Refresh()
         {
         }
 
+        private NodeStatus MyResult
+        {
+            get;
+            set;
+        }
+
         protected override NodeStatus Process()
         {
-            return Result;
+            Refresh();
+            return (Result = MyResult);
         }
     }
 }

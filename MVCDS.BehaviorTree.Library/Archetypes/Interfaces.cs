@@ -20,6 +20,6 @@
 
     public interface ILeaf : INode
     {
-        void Refresh();
+        void Refresh();//todo: review if it's really necessary
     }
 }

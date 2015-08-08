@@ -56,7 +56,7 @@
     <Compile Include="Selector_Test_Randomly.cs" />
     <Compile Include="Selector_Test.cs" />
     <Compile Include="Fakes\FakeLeaf.cs" />
-    <Compile Include="Fakes\FakeProcesses.cs" />
+    <Compile Include="Fakes\FakeResults.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Suceeder_Test.cs" />
