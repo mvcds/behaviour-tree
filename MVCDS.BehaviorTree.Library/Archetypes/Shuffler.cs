@@ -18,6 +18,9 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// <param name="source">The composite it should shuffle</param>
         public Shuffler(IComposite source)
         {
+            if (source == null)
+                throw new ArgumentNullException();
+
             Source = source;
         }
 
