@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public interface IDecorator : INode
-    {
-        INode Child { get; }
-    }
-
     /// <summary>
     /// MVCDS' implementation of a node which may contain only one child
     /// </summary>

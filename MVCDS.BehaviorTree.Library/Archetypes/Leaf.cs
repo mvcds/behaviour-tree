@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public interface ILeaf : INode
-    {
-        void Refresh();
-    }
-
     /// <summary>
     /// MVCDS's implementatiomn of a node which cannot contain any children
     /// </summary>

@@ -7,19 +7,6 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Archetypes
 {
-    public interface IComposite : INode
-    {
-        bool IsEmpty { get; }
-        
-        bool IsRandom { get; }
-
-        INode[] Nodes { get; }
-
-        void Add(INode node);
-
-        bool Remove(INode node);
-    }
-
     /// <summary>
     /// MVCDS' implementation of a node which may contain N children
     /// </summary>
