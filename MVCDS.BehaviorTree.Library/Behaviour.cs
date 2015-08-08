@@ -24,7 +24,7 @@ namespace MVCDS.BehaviorTree.Library
     /// <summary>
     /// MVCDS' implementation of a behaviour
     /// </summary>
-    public class Behaviour: INode
+    public sealed class Behaviour: INode
     {
         private INode Root;
 

@@ -10,7 +10,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
     /// <summary>
     /// A helper class for shuffle composite nodes
     /// </summary>
-    public class Shuffler
+    public sealed class Shuffler
     {
         /// <summary>
         /// Creates the shuffler
