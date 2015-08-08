@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Moq;
+using MVCDS.BehaviorTree.Library.Archetypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,18 @@ namespace MVCDS.BehaviorTree.Library.Test.Fake
         public NodeStatus Process()
         {
             return Results.Dequeue();
+        }
+
+        internal static T CreateNodes<T>(T composite, params NodeStatus[] returns)
+            where T : IComposite
+        {
+            foreach (NodeStatus @return in returns)
+            {
+                Mock<INode> node = TestHelper.Mock<INode>(@return);
+                composite.Add(node.Object);
+            }
+
+            return composite;
         }
     }
 }

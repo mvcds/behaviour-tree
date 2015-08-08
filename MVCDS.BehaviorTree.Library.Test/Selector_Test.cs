@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MVCDS.BehaviorTree.Library.Composites;
+using MVCDS.BehaviorTree.Library.Test.Fake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,14 +57,7 @@ namespace MVCDS.BehaviorTree.Library.Test
 
         private Selector CreateNode(params NodeStatus[] returns)
         {
-            Selector selector = CreateSelector();
-            foreach (NodeStatus @return in returns)
-            {
-                Mock<INode> node = TestHelper.Mock<INode>(@return);
-                selector.Add(node.Object);
-            }
-
-            return selector;
+            return FakeProcesses.CreateNodes<Selector>(CreateSelector(), returns);
         }
 
         protected virtual Selector CreateSelector()

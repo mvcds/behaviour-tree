@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCDS.BehaviorTree.Library.Composites;
 using Moq;
+using MVCDS.BehaviorTree.Library.Test.Fake;
 
 namespace MVCDS.BehaviorTree.Library.Test
 {
@@ -52,14 +53,12 @@ namespace MVCDS.BehaviorTree.Library.Test
 
         private Sequence CreateNode(params NodeStatus[] returns)
         {
-            Sequence sequence = new Sequence();
-            foreach (NodeStatus @return in returns)
-            {
-                Mock<INode> node = TestHelper.Mock<INode>(@return);
-                sequence.Add(node.Object);
-            }
+            return FakeProcesses.CreateNodes<Sequence>(CreateSequence(), returns);
+        }
 
-            return sequence;
+        protected virtual Sequence CreateSequence()
+        {
+            return new Sequence();
         }
     }
 }
