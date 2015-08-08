@@ -3,34 +3,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCDS.BehaviorTree.Library.Decorators;
 using Moq;
 using System.Collections.Generic;
+using MVCDS.BehaviorTree.Library.Test.Fake;
 
 namespace MVCDS.BehaviorTree.Library.Test
 {
     [TestClass]
     public class Repeat_Until_Fail
     {
-        private class TestableLeaf : INode
-        {
-            public TestableLeaf()
-            {
-                Results = new Queue<NodeStatus>();
-                Results.Enqueue(NodeStatus.Success);
-                Results.Enqueue(NodeStatus.Running);
-                Results.Enqueue(NodeStatus.Failure);
-            }
-
-            Queue<NodeStatus> Results { get; set; }
-            
-            public NodeStatus Process()
-            {
-                return Results.Dequeue();
-            }
-        }
-
         [TestMethod]
         public void Node_Succeeds()
         {
-            RepeatUntilFail cud = new RepeatUntilFail(new TestableLeaf());
+            FakeProcesses set = new FakeProcesses(NodeStatus.Success, NodeStatus.Running, NodeStatus.Failure);
+            RepeatUntilFail cud = new RepeatUntilFail(set);
             TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
         }
     }

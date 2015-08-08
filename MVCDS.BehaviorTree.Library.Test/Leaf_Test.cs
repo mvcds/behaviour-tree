@@ -3,45 +3,27 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCDS.BehaviorTree.Library.Archetypes;
 using Moq;
 using MVCDS.BehaviorTree.Library.Composites;
+using MVCDS.BehaviorTree.Library.Test.Fake;
 
 namespace MVCDS.BehaviorTree.Library.Test
 {
     [TestClass]
     public class Leaf_Test
     {
-        private class TestableLeaf: Leaf
-        {
-            public TestableLeaf(NodeStatus result)
-            {
-                Result = result;
-            }
-
-            NodeStatus Result { get; set; }
-
-            public override void Refresh()
-            {
-            }
-
-            protected override NodeStatus Process()
-            {
-                return Result;
-            }
-        }
-
         [TestMethod]
         public void Executes_Its_Process()
         {
-            TestableLeaf cud = new TestableLeaf(NodeStatus.Success);
+            FakeLeaf cud = new FakeLeaf(NodeStatus.Success);
             TestHelper.AssertProcess(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Executes_Its_When()
         {
-            TestableLeaf cud = new TestableLeaf(NodeStatus.Success);
-            cud.When<TestableLeaf>(NodeStatus.Success, () => 
+            FakeLeaf cud = new FakeLeaf(NodeStatus.Success);
+            cud.When<FakeLeaf>(NodeStatus.Success, () => 
             {
-                cud = new TestableLeaf(NodeStatus.Failure);
+                cud = new FakeLeaf(NodeStatus.Failure);
             });
 
             (cud as INode).Process();
@@ -51,7 +33,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         [TestMethod]
         public void Is_Executed_From_Selector()
         {
-            TestableLeaf cud = new TestableLeaf(NodeStatus.Success);
+            FakeLeaf cud = new FakeLeaf(NodeStatus.Success);
             Selector selector = new Selector();
 
             selector.Add(cud);
