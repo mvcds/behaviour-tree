@@ -22,23 +22,17 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         public Composite(bool random = false)
         {
             _nodes = new List<INode>();
-            IsRandom = random;
-
-            if (IsRandom)
-                Shuffler = new Shuffler(this);
+            Processor = new CompositeProcessor(this, random);
         }
 
         private List<INode> _nodes;
 
-        /// <summary>
-        /// Its nodes as they are
-        /// </summary>
-        INode[] IComposite.Nodes
+        public INode[] Children
         {
             get
             {
                 //TODO: copy the nodes before return them?
-                return _nodes.ToArray();
+                return Processor.SortNodes(_nodes);
             }
         }
 
@@ -58,21 +52,9 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// </summary>
         public bool IsRandom
         {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Its node as they should be proccessed
-        /// </summary>
-        protected List<INode> Children
-        {
             get
             {
-                return IsRandom
-                    ? Shuffler.Shuffle()
-                    : (this as IComposite).Nodes
-                        .ToList();
+                return Processor.IsRandom;
             }
         }
 
@@ -81,7 +63,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             get;
         }
 
-        Shuffler Shuffler { get; set; }
+        CompositeProcessor Processor { get; set; }
 
         /// <summary>
         /// Inserts a new node as its children

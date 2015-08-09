@@ -25,7 +25,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         {
             try
             {
-                Shuffler shuffler = new Shuffler(composite);
+                CompositeProcessor shuffler = new CompositeProcessor(composite);
             }
             catch(Exception e)
             {

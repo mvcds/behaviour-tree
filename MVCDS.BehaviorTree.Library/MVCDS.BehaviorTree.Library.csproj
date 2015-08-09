@@ -45,7 +45,7 @@
     <Compile Include="Archetypes\Decorator.cs" />
     <Compile Include="Archetypes\Interfaces.cs" />
     <Compile Include="Archetypes\Leaf.cs" />
-    <Compile Include="Archetypes\Shuffler.cs" />
+    <Compile Include="Archetypes\CompositeProcessor.cs" />
     <Compile Include="Behaviour.cs" />
     <Compile Include="Composites\Selector.cs">
       <SubType>Code</SubType>

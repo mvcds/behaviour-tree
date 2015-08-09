@@ -6,7 +6,7 @@
 
         bool IsRandom { get; }
 
-        INode[] Nodes { get; }
+        INode[] Children { get; }
 
         void Add(INode node);
 
