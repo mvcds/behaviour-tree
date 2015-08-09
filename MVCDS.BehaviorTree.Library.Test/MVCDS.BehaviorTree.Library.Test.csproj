@@ -67,6 +67,7 @@
     <Compile Include="Sequence_Test.cs" />
     <Compile Include="Repeat_Until_Fail.cs" />
     <Compile Include="Sequence_Test_Randomly.cs" />
+    <Compile Include="Shuffler_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVCDS.BehaviorTree.Library\MVCDS.BehaviorTree.Library.csproj">
