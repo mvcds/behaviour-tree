@@ -8,7 +8,7 @@ using MVCDS.BehaviorTree.Library.Test.Fake;
 namespace MVCDS.BehaviorTree.Library.Test
 {
     [TestClass]
-    public class Repeat_Until_Fail
+    public class Repeat_Until_Fail_Test
     {
         [TestMethod]
         public void Node_Succeeds()
