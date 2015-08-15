@@ -40,8 +40,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
 
         private NodeStatus Execute()
         {
-            NodeStatus result;
-            foreach (INode child in Children)
+            NodeStatus result; 
+            INode[] children = Processor.Nodes;
+            foreach (INode child in children)
             {
                 result = child.Result;
                 if (result == NodeStatus.Success)

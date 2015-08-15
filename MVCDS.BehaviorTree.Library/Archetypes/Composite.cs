@@ -26,13 +26,13 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         }
 
         private List<INode> _nodes;
-
-        public INode[] Children
+                
+        INode[] IComposite.Children
         {
             get
             {
                 //TODO: copy the nodes before return them?
-                return Processor.SortNodes(_nodes);
+                return _nodes.ToArray();
             }
         }
 
@@ -63,7 +63,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             get;
         }
 
-        CompositeProcessor Processor { get; set; }
+        protected CompositeProcessor Processor { get; private set; }
 
         /// <summary>
         /// Inserts a new node as its children

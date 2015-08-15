@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archetypes\Composite.cs" />
+    <Compile Include="Archetypes\CompositeShuffler.cs" />
     <Compile Include="Archetypes\Decorator.cs" />
     <Compile Include="Archetypes\Interfaces.cs" />
     <Compile Include="Archetypes\Leaf.cs" />

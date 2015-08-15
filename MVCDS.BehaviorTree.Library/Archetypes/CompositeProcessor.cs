@@ -22,33 +22,34 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
                 throw new ArgumentNullException();
 
             Source = source;
-            IsRandom = random;
+
+            if (random)
+                Shuffler = new CompositeShuffler(Source);
         }
 
         private IComposite Source { get; set; }
+
+        private CompositeShuffler Shuffler { get; set; }
 
         /// <summary>
         /// Was this node created for random process or not?
         /// </summary>
         public bool IsRandom
         {
-            get;
-            private set;
+            get
+            {
+                return Shuffler != null;
+            }
         }
 
-        //TODO: how to keep track of shuffled node?
-        //ie: know that they only change on the right time?
-        public INode[] SortNodes(List<INode> nodes)
+        public INode[] Nodes
         {
-            return IsRandom
-                ? Shuffle(nodes)
-                : nodes.ToArray();
-        }
-
-        private INode[] Shuffle(List<INode> nodes)
-        {
-            return nodes.OrderBy(p => Guid.NewGuid())
-                .ToArray();
+            get
+            {
+                return IsRandom
+                    ? Shuffler.Shuffle()
+                    : Source.Children;
+            }
         }
     }
 }

@@ -43,7 +43,8 @@ namespace MVCDS.BehaviorTree.Library.Composites
             NodeStatus result;
             try
             {
-                foreach (INode child in Children)
+                INode[] children = Processor.Nodes;
+                foreach (INode child in children)
                     Execute(child);
                 result = IsRunning ? NodeStatus.Running : NodeStatus.Success;
             }
