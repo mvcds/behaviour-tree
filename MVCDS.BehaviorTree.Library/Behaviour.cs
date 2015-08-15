@@ -20,6 +20,7 @@ namespace MVCDS.BehaviorTree.Library
     public interface INode
     {
         NodeStatus Result { get; }
+        //TODO: how to handle errors
     }
 
     //TODO: can I yield the return?

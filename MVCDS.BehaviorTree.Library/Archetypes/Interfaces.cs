@@ -8,7 +8,7 @@
 
         INode[] Children { get; }
 
-        void Add(INode node);
+        void Add(INode node);//TODO: multiple adds
 
         bool Remove(INode node);
     }

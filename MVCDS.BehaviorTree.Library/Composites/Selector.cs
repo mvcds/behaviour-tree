@@ -18,8 +18,8 @@ namespace MVCDS.BehaviorTree.Library.Composites
         /// </summary>
         /// <value>false</value> if the order of its nodes are processed matter
         /// <value>true</value> if the order of its nodes can be processed randomly
-        public Selector(bool random = false)
-            : base(random)
+        public Selector(bool random = false, bool yieldable = false)
+            : base(random, yieldable) 
         {
         }
         
@@ -29,6 +29,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
         {
             get
             {
+                if (result != NodeStatus.Running)
+                    return result;
+
                 if (IsEmpty)
                     return NodeStatus.Success;
 
@@ -38,9 +41,9 @@ namespace MVCDS.BehaviorTree.Library.Composites
             }
         }
 
+        NodeStatus result; 
         private NodeStatus Execute()
         {
-            NodeStatus result; 
             INode[] children = Processor.Nodes;
             foreach (INode child in children)
             {

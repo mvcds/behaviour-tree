@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
+    //TODO: it's also yieldable
     /// <summary>
     /// Repeats the proccess on its child until it fails
     /// </summary>

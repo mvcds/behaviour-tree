@@ -16,7 +16,12 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// Creates the processor
         /// </summary>
         /// <param name="source">The composite it should process</param>
-        public CompositeProcessor(IComposite source, bool random = false)
+        /// <param name="random">The order to process the source's children matter when the value is <value>true</value>;
+        /// otherwise they are processed randomly</param>
+        /// <param name="yieldable">When <value>true</value>, it processes the same source's children's node until it stops running,
+        /// then it tryies to process the next;
+        /// otherwise it processes all source's children before returning</param>
+        public CompositeProcessor(IComposite source, bool random = false, bool yieldable = false)
         {
             if (source == null)
                 throw new ArgumentNullException();
@@ -25,6 +30,8 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
             if (random)
                 Shuffler = new CompositeShuffler(Source);
+
+            IsYieldable = yieldable;
         }
 
         private IComposite Source { get; set; }
@@ -42,7 +49,34 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
+        /// <summary>
+        /// Does the processor passes one node or all of them?
+        /// </summary>
+        public bool IsYieldable { get; private set; }
+
         public INode[] Nodes
+        {
+            get
+            {
+                return IsYieldable
+                    ? NextNode
+                    : AllNodes;
+            }
+        }
+
+        Queue<INode> _nexts;
+        private INode[] NextNode
+        {
+            get
+            {
+                if (_nexts == null)
+                    _nexts = new Queue<INode>(AllNodes);
+
+                return new INode[] { _nexts.Dequeue()  };
+            }
+        }
+
+        private INode[] AllNodes
         {
             get
             {

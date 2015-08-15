@@ -19,10 +19,10 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         /// <value>false</value> if the order of its nodes are processed matter
         /// <value>true</value> if the order of its nodes can be processed randomly
         /// </param>
-        public Composite(bool random = false)
+        public Composite(bool random = false, bool yieldable = false)
         {
             _nodes = new List<INode>();
-            Processor = new CompositeProcessor(this, random);
+            Processor = new CompositeProcessor(this, random, yieldable);
         }
 
         private List<INode> _nodes;
