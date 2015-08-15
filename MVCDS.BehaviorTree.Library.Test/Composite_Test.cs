@@ -12,12 +12,22 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Remove_Node()
         {
             Mock<INode> node = TestHelper.Mock<INode>();
-            Sequence inverter = new Sequence();
+            Sequence sequence = new Sequence();
 
-            inverter.Add(node.Object);
+            sequence.Add(node.Object);
 
-            Assert.IsTrue(inverter.Remove(node.Object));
-            Assert.IsFalse(inverter.Remove(node.Object));
+            Assert.IsTrue(sequence.Remove(node.Object));
+            Assert.IsFalse(sequence.Remove(node.Object));
+        }
+
+        [TestMethod]
+        public void Check_Random()
+        {
+            Sequence random = new Sequence(true);
+            Assert.IsTrue(random.IsRandom);
+
+            Sequence linear = new Sequence(false);
+            Assert.IsFalse(linear.IsRandom);
         }
     }
 }

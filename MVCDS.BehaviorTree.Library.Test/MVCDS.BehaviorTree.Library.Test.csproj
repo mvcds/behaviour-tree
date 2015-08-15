@@ -67,7 +67,7 @@
     <Compile Include="Sequence_Test.cs" />
     <Compile Include="Repeat_Until_Fail.cs" />
     <Compile Include="Sequence_Test_Randomly.cs" />
-    <Compile Include="Shuffler_Test.cs" />
+    <Compile Include="Composite_Helpers_Test.cs" />
     <Compile Include="Decorator_Test.cs" />
     <Compile Include="Composite_Test.cs" />
   </ItemGroup>
