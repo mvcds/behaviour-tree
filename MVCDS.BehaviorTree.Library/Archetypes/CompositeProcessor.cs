@@ -10,7 +10,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
     /// <summary>
     /// A helper class to work with composite's children
     /// </summary>
-    public sealed class CompositeProcessor
+    public sealed class CompositeProcessor : IYieldable
     {
         /// <summary>
         /// Creates the processor
@@ -70,7 +70,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             get
             {
                 if (_nexts == null)
-                    _nexts = new Queue<INode>(AllNodes);
+                    Reset();
 
                 return new INode[] { _nexts.Dequeue()  };
             }
@@ -84,6 +84,12 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
                     ? Shuffler.Shuffle()
                     : Source.Children;
             }
+        }
+
+        public void Reset()
+        {
+            if (IsYieldable)
+                _nexts = new Queue<INode>(AllNodes);
         }
     }
 }

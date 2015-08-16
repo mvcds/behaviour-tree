@@ -13,9 +13,27 @@ namespace MVCDS.BehaviorTree.Library.Test
         [TestMethod]
         public void Node_Succeeds()
         {
-            FakeProcesses set = new FakeProcesses(NodeStatus.Success, NodeStatus.Running, NodeStatus.Failure);
-            RepeatUntilFail cud = new RepeatUntilFail(set);
+            RepeatUntilFail cud = Create_Repeater(false);
             TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+        }
+
+        [TestMethod]
+        public void Reset_The_Yieldable()
+        {
+            RepeatUntilFail cud = Create_Repeater(true);
+            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Running);
+            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Running);
+            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+            cud.Reset();
+        }
+
+        private RepeatUntilFail Create_Repeater(bool yieldable)
+        {
+            FakeProcesses set = new FakeProcesses(NodeStatus.Success, NodeStatus.Running, NodeStatus.Failure);
+            RepeatUntilFail cud = new RepeatUntilFail(set, yieldable);
+            return cud;
         }
     }
 }

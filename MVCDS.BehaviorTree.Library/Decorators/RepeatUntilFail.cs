@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
-    //TODO: it's also yieldable
     /// <summary>
     /// Repeats the proccess on its child until it fails
     /// </summary>
-    public sealed class RepeatUntilFail : Decorator
+    public sealed class RepeatUntilFail : Decorator, IYieldable
     {
-        public RepeatUntilFail(INode node)
+        public RepeatUntilFail(INode node, bool yieldable = false)
             : base(node)
         {
             //TODO: can I use the repeater inside?
+            IsYieldable = yieldable;
         }
 
         //TODO: use the result to not need the setter
@@ -26,18 +26,42 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         {
             get 
             {
+                //it only can return success when it's not yieldable
+                if (result != NodeStatus.Running && !IsYieldable)
+                    return NodeStatus.Success;
+
                 HasFailed = false;
 
                 return Execute();
             }
         }
 
+        public bool IsYieldable
+        {
+            get;
+            private set;
+        }
+
+        NodeStatus result;
         private NodeStatus Execute()
         {
-            NodeStatus result = Child.Result;
+            result = Child.Result;
+
             if (result == NodeStatus.Failure)
                 HasFailed = true;
-            return HasFailed ? NodeStatus.Success : Execute();
+
+            if (HasFailed)
+                return NodeStatus.Success;
+
+            if (IsYieldable)
+                return NodeStatus.Running;
+
+            return Execute();
+        }
+
+        public void Reset()
+        {
+            result = NodeStatus.Running;
         }
     }
 }

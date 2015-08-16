@@ -10,7 +10,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
     /// <summary>
     /// MVCDS' implementation of a node which may contain N children
     /// </summary>
-    abstract public partial class Composite : IComposite
+    abstract public partial class Composite : IComposite, IYieldable
     {
         /// <summary>
         /// Creates a Composite node
@@ -58,6 +58,14 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             }
         }
 
+        public bool IsYieldable 
+        {
+            get
+            {
+                return Processor.IsYieldable;
+            }
+        }
+
         abstract public NodeStatus Result
         {
             get;
@@ -82,6 +90,11 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
         public bool Remove(INode node)
         {
             return _nodes.Remove(node);
+        }
+
+        public void Reset()
+        {
+            Processor.Reset();
         }
     }
 }

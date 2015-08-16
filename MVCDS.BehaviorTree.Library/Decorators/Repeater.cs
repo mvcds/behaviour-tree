@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MVCDS.BehaviorTree.Library.Decorators
 {
-    //TODO: it's also yieldable
     /// <summary>
     /// Repeats the proccess on its child until a condition is met
     /// </summary>
-    public sealed class Repeater : Decorator
+    public sealed class Repeater : Decorator, IYieldable
     {
         /// <summary>
         /// Creates the Repeates
@@ -20,24 +19,27 @@ namespace MVCDS.BehaviorTree.Library.Decorators
         /// <param name="shouldExecute">
         /// The function that makes the node be repeated/stopped
         /// </param>
-        public Repeater(INode node, Func<bool> shouldExecute)
+        public Repeater(INode node, Func<bool> shouldExecute, bool yieldable = false)
             : base(node)
         {
             ShouldExecute = shouldExecute;
+            IsYieldable = yieldable;
         }
 
         private Func<bool> ShouldExecute { get; set; }
 
+        NodeStatus result;
         public override NodeStatus Result
         {
             get 
             {
-                NodeStatus result = NodeStatus.Running;
                 while (ShouldExecute())
                 {
                     try
                     {
                         result = Child.Result;
+                        if (IsYieldable)
+                            break;
                     }
                     catch
                     {
@@ -46,6 +48,17 @@ namespace MVCDS.BehaviorTree.Library.Decorators
                 }
                 return result;
             }
+        }
+
+        public bool IsYieldable
+        {
+            get;
+            private set;
+        }
+
+        public void Reset()
+        {
+            result = NodeStatus.Running;
         }
     }
 }

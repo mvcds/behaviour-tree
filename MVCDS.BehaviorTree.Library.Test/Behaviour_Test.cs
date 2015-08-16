@@ -10,23 +10,34 @@ namespace MVCDS.BehaviorTree.Library.Test
         [TestMethod]
         public void No_Root()
         {
-            CreateBehaviour(null);
+            CreateBehaviour(null, false);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
             Mock<INode> node = TestHelper.Mock<INode>(NodeStatus.Failure);
-            Behaviour behaviour = CreateBehaviour(node.Object);
+            Behaviour behaviour = CreateBehaviour(node.Object, false);
 
             Assert.AreEqual(NodeStatus.Failure, behaviour.Result);
         }
 
-        private Behaviour CreateBehaviour(INode node)
+        [TestMethod]
+        public void Reset_Yieldable()
+        {
+            Mock<INode> node = TestHelper.Mock<INode>(NodeStatus.Failure);
+            Behaviour behaviour = CreateBehaviour(node.Object, true);
+
+            Assert.AreEqual(NodeStatus.Failure, behaviour.Result);
+            behaviour.Reset();
+            Assert.AreEqual(NodeStatus.Failure, behaviour.Result);
+        }
+
+        private Behaviour CreateBehaviour(INode node, bool yieldable)
         {
             try
             {
-                return new Behaviour(node);
+                return new Behaviour(node, yieldable);
             }
             catch (Exception e)
             {

@@ -7,27 +7,9 @@ using System.Threading.Tasks;
 namespace MVCDS.BehaviorTree.Library
 {
     /// <summary>
-    /// The status that a node may result
-    /// </summary>
-    public enum NodeStatus
-    {
-        Running,
-        Success,
-        Failure
-    }
-
-    //TODO: nodes shouldn't be refreshed?
-    public interface INode
-    {
-        NodeStatus Result { get; }
-        //TODO: how to handle errors
-    }
-
-    //TODO: can I yield the return?
-    /// <summary>
     /// MVCDS' implementation of a behaviour
     /// </summary>
-    public sealed class Behaviour: INode
+    public sealed class Behaviour: INode, IYieldable
     {
         private INode Root;
 
@@ -35,26 +17,39 @@ namespace MVCDS.BehaviorTree.Library
         /// Creates a behaviour
         /// </summary>
         /// <param name="root">The root node of the behaviour</param>
-        public Behaviour(INode root)
+        public Behaviour(INode root, bool yieldable = false)
         {
             if (root == null)
                 throw new ArgumentNullException();
 
             Root = root;
+            IsYieldable = yieldable;
         }
 
+        NodeStatus result;
         public NodeStatus Result
         {
             get
             {
-                NodeStatus result;
-                do
+                while (result == NodeStatus.Running)
                 {
                     result = Root.Result;
+                    if (IsYieldable)
+                        break;
                 }
-                while (result == NodeStatus.Running);
                 return result;
             }
+        }
+
+        public bool IsYieldable
+        {
+            get;
+            private set;
+        }
+
+        public void Reset()
+        {
+            result = NodeStatus.Running;
         }
     }
 }

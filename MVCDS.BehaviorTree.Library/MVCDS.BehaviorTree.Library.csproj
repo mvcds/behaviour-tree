@@ -56,6 +56,7 @@
     <Compile Include="Decorators\Repeater.cs" />
     <Compile Include="Decorators\RepeatUntilFail.cs" />
     <Compile Include="Decorators\Succeeder.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

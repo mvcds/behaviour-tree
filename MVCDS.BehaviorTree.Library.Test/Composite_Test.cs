@@ -29,5 +29,14 @@ namespace MVCDS.BehaviorTree.Library.Test
             Sequence linear = new Sequence(false);
             Assert.IsFalse(linear.IsRandom);
         }
+
+        [TestMethod]
+        public void Reset_The_Yieldable()
+        {
+            Sequence sequence = new Sequence(false, true);
+            if (sequence.IsYieldable)
+                sequence.Reset();
+            TestHelper.AssertProcess<Sequence>(sequence, NodeStatus.Success);
+        }
     }
 }

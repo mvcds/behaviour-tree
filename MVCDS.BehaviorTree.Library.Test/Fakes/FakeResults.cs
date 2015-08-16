@@ -18,12 +18,15 @@ namespace MVCDS.BehaviorTree.Library.Test.Fake
         }
 
         Queue<NodeStatus> Results { get; set; }
+        NodeStatus Last { get; set; }
 
         public NodeStatus Result
         {
             get
             {
-                return Results.Dequeue();
+                if (Results.Any())
+                    Last = Results.Dequeue();
+                return Last;
             }
         }
 
