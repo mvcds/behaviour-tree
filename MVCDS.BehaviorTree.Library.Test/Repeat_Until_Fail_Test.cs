@@ -14,18 +14,18 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Node_Succeeds()
         {
             RepeatUntilFail cud = Create_Repeater(false);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Reset_The_Yieldable()
         {
             RepeatUntilFail cud = Create_Repeater(true);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Running);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Running);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
-            TestHelper.AssertProcess<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Running);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Running);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Success);
+            TestHelper.AssertResult<RepeatUntilFail>(cud, NodeStatus.Success);
             cud.Reset();
         }
 

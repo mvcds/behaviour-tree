@@ -12,21 +12,21 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Node_Succeeds()
         {
             Inverter cud = CreateNode(NodeStatus.Success);
-            TestHelper.AssertProcess<Inverter>(cud, NodeStatus.Failure);
+            TestHelper.AssertResult<Inverter>(cud, NodeStatus.Failure);
         }
 
         [TestMethod]
         public void Node_Keeps_Running()
         {
             Inverter cud = CreateNode(NodeStatus.Running);
-            TestHelper.AssertProcess<Inverter>(cud, NodeStatus.Running);
+            TestHelper.AssertResult<Inverter>(cud, NodeStatus.Running);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
             Inverter cud = CreateNode(NodeStatus.Failure);
-            TestHelper.AssertProcess<Inverter>(cud, NodeStatus.Success);
+            TestHelper.AssertResult<Inverter>(cud, NodeStatus.Success);
         }
 
         private Inverter CreateNode(NodeStatus returns)

@@ -42,10 +42,10 @@ namespace MVCDS.BehaviorTree.Library.Test
         {
             FakeProcesses.CreateNodes(composite, NodeStatus.Running, NodeStatus.Running, NodeStatus.Success);
 
-            TestHelper.AssertProcess(composite, NodeStatus.Running);
-            TestHelper.AssertProcess(composite, NodeStatus.Running);
-            TestHelper.AssertProcess(composite, NodeStatus.Success);
-            TestHelper.AssertProcess(composite, NodeStatus.Success);
+            TestHelper.AssertResult(composite, NodeStatus.Running);
+            TestHelper.AssertResult(composite, NodeStatus.Running);
+            TestHelper.AssertResult(composite, NodeStatus.Success);
+            TestHelper.AssertResult(composite, NodeStatus.Success);
         }
 
         private CompositeProcessor CreateProcessor(IComposite composite, bool random, bool yieldable)

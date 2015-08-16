@@ -51,8 +51,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             return mock;
         }
 
-        //TODO: change name to assert result
-        internal static void AssertProcess<T>(T cud, NodeStatus expected)
+        internal static void AssertResult<T>(T cud, NodeStatus expected)
             where T : INode
         {
             NodeStatus result = (cud as INode).Result;

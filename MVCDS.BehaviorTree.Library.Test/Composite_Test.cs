@@ -36,7 +36,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             Sequence sequence = new Sequence(false, true);
             if (sequence.IsYieldable)
                 sequence.Reset();
-            TestHelper.AssertProcess<Sequence>(sequence, NodeStatus.Success);
+            TestHelper.AssertResult<Sequence>(sequence, NodeStatus.Success);
         }
     }
 }

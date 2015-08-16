@@ -23,6 +23,6 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
 
     public interface ILeaf : INode
     {
-        void Refresh();//todo: review if it's really necessary
+        void Refresh();
     }
 }

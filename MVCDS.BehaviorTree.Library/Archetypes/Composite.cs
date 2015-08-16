@@ -10,7 +10,7 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
     /// <summary>
     /// MVCDS' implementation of a node which may contain N children
     /// </summary>
-    abstract public partial class Composite : IComposite, IYieldable
+    abstract public class Composite : IComposite, IYieldable
     {
         /// <summary>
         /// Creates a Composite node

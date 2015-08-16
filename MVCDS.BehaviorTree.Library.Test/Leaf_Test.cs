@@ -14,7 +14,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Executes_Its_Process()
         {
             FakeLeaf cud = new FakeLeaf(NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace MVCDS.BehaviorTree.Library.Test
 
             NodeStatus result = (cud as INode).Result;
             Assert.AreEqual(NodeStatus.Success, result);
-            TestHelper.AssertProcess(cud, NodeStatus.Failure);
+            TestHelper.AssertResult(cud, NodeStatus.Failure);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace MVCDS.BehaviorTree.Library.Test
 
             selector.Add(cud);
 
-            TestHelper.AssertProcess(selector, NodeStatus.Success);
+            TestHelper.AssertResult(selector, NodeStatus.Success);
         }
     }
 }

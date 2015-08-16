@@ -12,32 +12,32 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Node_Succeeds()
         {
             Repeater cud = CreateRepeater(NodeStatus.Success, false);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Keeps_Running()
         {
             Repeater cud = CreateRepeater(NodeStatus.Running, false);
-            TestHelper.AssertProcess(cud, NodeStatus.Running);
+            TestHelper.AssertResult(cud, NodeStatus.Running);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
             Repeater cud = CreateRepeater(NodeStatus.Failure, false);
-            TestHelper.AssertProcess(cud, NodeStatus.Failure);
+            TestHelper.AssertResult(cud, NodeStatus.Failure);
         }
 
         [TestMethod]
         public void Reset_The_Yieldable()
         {
             Repeater cud = CreateRepeater(NodeStatus.Success, true);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
             cud.Reset();
         }
 
@@ -50,7 +50,7 @@ namespace MVCDS.BehaviorTree.Library.Test
             {
                 return i-- >= 0;
             });
-            TestHelper.AssertProcess(cud, NodeStatus.Failure);
+            TestHelper.AssertResult(cud, NodeStatus.Failure);
         }
 
         private Repeater CreateRepeater(NodeStatus returns, bool yieldable)

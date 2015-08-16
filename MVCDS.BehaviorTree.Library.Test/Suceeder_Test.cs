@@ -12,21 +12,21 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void Node_Succeeds()
         {
             Succeeder cud = CreateNode(NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Keeps_Running()
         {
             Succeeder cud = CreateNode(NodeStatus.Running);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Fails()
         {
             Succeeder cud = CreateNode(NodeStatus.Failure);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace MVCDS.BehaviorTree.Library.Test
         {
             Mock<INode> node = TestHelper.Mock<INode>(new Exception());
             Succeeder cud = new Succeeder(node.Object);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         private Succeeder CreateNode(NodeStatus returns)

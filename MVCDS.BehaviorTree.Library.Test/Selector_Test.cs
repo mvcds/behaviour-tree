@@ -17,42 +17,42 @@ namespace MVCDS.BehaviorTree.Library.Test
         public void No_Child()
         {
             Selector cud = CreateNode();
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void All_Success()
         {
             Selector cud = CreateNode(NodeStatus.Success, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Node_Keeps_Running()
         {
             Selector cud = CreateNode(NodeStatus.Running);
-            TestHelper.AssertProcess(cud, NodeStatus.Running);
+            TestHelper.AssertResult(cud, NodeStatus.Running);
         }
 
         [TestMethod]
         public void First_Fail()
         {
             Selector cud = CreateNode(NodeStatus.Failure, NodeStatus.Success);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void Last_Fail()
         {
             Selector cud = CreateNode(NodeStatus.Success, NodeStatus.Failure);
-            TestHelper.AssertProcess(cud, NodeStatus.Success);
+            TestHelper.AssertResult(cud, NodeStatus.Success);
         }
 
         [TestMethod]
         public void All_Fail()
         {
             Selector cud = CreateNode(NodeStatus.Failure, NodeStatus.Failure);
-            TestHelper.AssertProcess(cud, NodeStatus.Failure);
+            TestHelper.AssertResult(cud, NodeStatus.Failure);
         }
 
         private Selector CreateNode(params NodeStatus[] returns)
