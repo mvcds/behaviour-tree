@@ -1,4 +1,5 @@
-﻿namespace MVCDS.BehaviorTree.Library.Archetypes
+﻿using System.Collections.Generic;
+namespace MVCDS.BehaviorTree.Library.Archetypes
 {
     public interface IComposite : INode
     {
@@ -8,7 +9,9 @@
 
         INode[] Children { get; }
 
-        void Add(INode node);//TODO: multiple adds
+        void Add(INode node);
+
+        void Add(IEnumerable<INode> nodes);
 
         bool Remove(INode node);
     }

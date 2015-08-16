@@ -82,6 +82,11 @@ namespace MVCDS.BehaviorTree.Library.Archetypes
             _nodes.Add(node);
         }
 
+        public void Add(IEnumerable<INode> nodes)
+        {
+            _nodes.AddRange(nodes);
+        }
+
         /// <summary>
         /// Removes the node, if available
         /// </summary>

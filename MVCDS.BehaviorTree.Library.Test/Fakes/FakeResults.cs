@@ -33,11 +33,13 @@ namespace MVCDS.BehaviorTree.Library.Test.Fake
         internal static T CreateNodes<T>(T composite, params NodeStatus[] returns)
             where T : IComposite
         {
+            List<INode> nodes = new List<INode>();
             foreach (NodeStatus @return in returns)
             {
                 Mock<INode> node = TestHelper.Mock<INode>(@return);
-                composite.Add(node.Object);
+                nodes.Add(node.Object);
             }
+            composite.Add(nodes);
 
             return composite;
         }
